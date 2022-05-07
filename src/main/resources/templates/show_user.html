@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Show user</title>
+    <style> table th, table td {
+        padding: 10px 5px;
+        font-family: "Roboto Light",serif;
+        font-size: 16px;
+        border-style: dashed;
+        border-width: 1px;
+    }
+    button {
+        width: 70px;
+        height: 25px;
+        font-size: 15px;
+        border-style: solid;
+        background-color: yellowgreen;
+    }
+    .my_button3 {
+        width: 70px;
+        height: 25px;
+        font-size: 15px;
+        border-style: solid;
+        background-color: #ffffff;
+    }
+    </style>
+</head>
+<body>
+<h1>User info</h1>
+<br/>
+<div th:text="${'ID: ' + user.getId()}">ID</div>
+<div th:text="${'Name: ' + user.getName()}">Name</div>
+<div th:text="${'Surname: ' + user.getSurname()}">Surname</div>
+<div th:text="${'Age: ' + user.getAge()}">Age</div>
+<div th:text="${'Email: ' + user.getEmail()}">Email</div>
+<div th:text="${'Login: ' + user.getUsername()}">Login</div>
+<div>
+    <br>
+    <p>Your roles:</p>
+    <tr th:each="role : ${roles}">
+        <th th:text="${role}"></th>
+        <br/>
+    </tr>
+</div>
+<hr/>
+<br/>
+<th:block sec:authorize="hasRole('ADMIN')">
+    <button onclick="window.location.href = '/admin';">List</button>
+</th:block>
+<hr/>
+<br/>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" class="my_button3"/>
+</form>
+</body>
+</html>
