@@ -66,9 +66,7 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    private void setRolesFromRequest(@ModelAttribute("person") User user,
-                                     @RequestParam(required = false) String roleAdmin,
-                                     @RequestParam(required = false) String roleUser) {
+    private void setRolesFromRequest(User user, String roleAdmin, String roleUser) {
         Set<Role> roles = new HashSet<>();
         if (roleAdmin != null) {
             roles.add(roleService.getRoleByName(roleAdmin));
