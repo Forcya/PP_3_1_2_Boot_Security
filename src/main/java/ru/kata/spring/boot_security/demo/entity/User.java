@@ -53,17 +53,18 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    //Метод для вывода ролей на View
+    //Метод для вывода имеющихся у User-а ролей на View (update)
     public boolean containsRoleName(String roleName) {
         return roles.stream().map(Role::getName).collect(Collectors.toList()).contains(roleName);
     }
 
+    //Преобразовываем роли User-а в права для преобразования User-а из БД в User-а Spring (UserDetails)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles().stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
     }
 
-
+    //Флажки вкл/выкл. Внутри методов описание
     @Override
     public boolean isAccountNonExpired() { //true если учетная запись пользователя действительна (т.е. не просрочена)
         return true;

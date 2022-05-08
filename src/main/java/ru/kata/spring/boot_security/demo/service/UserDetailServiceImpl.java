@@ -18,6 +18,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
         this.userService = userService;
     }
 
+    //Получаем User-а из БД и преобразовываем (возвращаем) в Spring User-а (UserDetails),
+    //c помощью метода интерфейса UserDetailsService
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

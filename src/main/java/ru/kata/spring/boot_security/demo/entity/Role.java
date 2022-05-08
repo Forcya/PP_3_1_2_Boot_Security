@@ -39,6 +39,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return getName();
+        return getName(); //Чтобы на View возвращать роль User-а по имени
     }
 }

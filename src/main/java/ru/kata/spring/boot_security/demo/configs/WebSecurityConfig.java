@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
+                .authorizeRequests() //Запрашивается авторизация для определенных URl-ов, которые мы прописываем ниже
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().hasAnyRole("ADMIN", "USER")
                 .and()
@@ -36,13 +36,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll(); //доступен всем
     }
 
 
     //Для использования данных для аутентификации из БД
     //Мы отдаем методу логин и пароль, а он говорит, существует такой пользователь или нет
     //Если пользователь существует, то он кладет его в Spring SecurityContext - класс-хранилище пользователей
+
+    //Передаем методу преобразованного User-а из БД в Spring User-а (UserDetails) для произведения аутентификации
+    //(сравнивает полученного UserDetails с логином и паролем из токена (со страницы аутентификации на сайте)
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider () {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
